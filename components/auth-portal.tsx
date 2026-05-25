@@ -183,8 +183,8 @@ export function AuthPortal({ onLogin }: AuthPortalProps) {
               </div>
             </div>
 
-            {/* Username Field */}
-            <div className="space-y-2">
+          {/* Username Field */}
+          <div className="space-y-2">
               <Label htmlFor="login-username" className="text-sm font-medium text-foreground/90">
                 Username
               </Label>
@@ -201,7 +201,8 @@ export function AuthPortal({ onLogin }: AuthPortalProps) {
                       setLoginErrors(prev => ({ ...prev, userName: undefined }));
                     }
                   }}
-                  className="pl-10 h-11 bg-input border-border/50 focus:border-primary focus:ring-primary/20"
+                  
+                  className="pl-10 h-11 bg-input border-border/50 focus:border-primary focus:ring-primary/20 transition-all duration-300 hover:border-primary/50 focus:scale-[1.02] hover:shadow-[0_0_10px_rgba(0,255,255,0.05)]"
                   aria-invalid={!!loginErrors.userName}
                 />
               </div>
@@ -228,7 +229,8 @@ export function AuthPortal({ onLogin }: AuthPortalProps) {
                       setLoginErrors(prev => ({ ...prev, password: undefined }));
                     }
                   }}
-                  className="pl-10 h-11 bg-input border-border/50 focus:border-primary focus:ring-primary/20"
+                  
+                  className="pl-10 h-11 bg-input border-border/50 focus:border-primary focus:ring-primary/20 transition-all duration-300 hover:border-primary/50 focus:scale-[1.02] hover:shadow-[0_0_10px_rgba(0,255,255,0.05)]"
                   aria-invalid={!!loginErrors.password}
                 />
               </div>
@@ -236,18 +238,18 @@ export function AuthPortal({ onLogin }: AuthPortalProps) {
                 <p className="text-sm text-destructive">{loginErrors.password}</p>
               )}
             </div>
-            {/* Server Auth Error Display - ADD THIS BLOCK! */}
+
+            {/* Server Auth Error Display */}
             {authError && (
-              <div className="p-3 mb-4 text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-md flex items-center gap-2">
+              <div className="p-3 mb-4 text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-md flex items-center gap-2 animate-in fade-in slide-in-from-top-2 duration-300">
                 <Shield className="w-4 h-4 shrink-0" />
                 <p>{authError}</p>
               </div>
             )}
-            
-            {/* Submit Button */}
-            <Button 
-              type="submit" 
-              className="w-full h-12 mt-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg shadow-primary/25 transition-all duration-200"
+         {/* Submit Button */}
+         <Button 
+              type="submit"
+              className="w-full h-12 mt-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-lg shadow-primary/25 transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,255,255,0.4)] hover:-translate-y-0.5 active:scale-95"
               disabled={isLoading}
             >
               {isLoading ? (

@@ -21,6 +21,39 @@ const transactions = [
   { id: 104, senderAccount: "8091234567", receiverAccount: "CASH", transactionType: "Withdrawal", date: "2026-04-30", amount: 200.00 },
   { id: 105, senderAccount: "7766554433", receiverAccount: "8091234567", transactionType: "Transfer", date: "2026-04-28", amount: 750.00 },
 ];
+// 🚀 THE MAGIC NUMBER SCROLLER 🚀
+function AnimatedBalance({ amount }: { amount: number }) {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    const duration = 1000; // Animation takes exactly 1 second
+    const frameRate = 1000 / 60; // Buttery smooth 60 Frames Per Second
+    const totalFrames = Math.round(duration / frameRate);
+    let frame = 0;
+
+    const counter = setInterval(() => {
+      frame++;
+      const progress = frame / totalFrames;
+      
+      // Easing function (starts fast, slows down at the end)
+      const easeOut = 1 - (1 - progress) * (1 - progress);
+      const currentCount = amount * easeOut;
+
+      if (frame >= totalFrames) {
+        clearInterval(counter);
+        setDisplayValue(amount);
+      } else {
+        setDisplayValue(currentCount);
+      }
+    }, frameRate);
+
+    return () => clearInterval(counter);
+  }, [amount]);
+
+  return (
+    <>{displayValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</>
+  );
+}
 
 export function UserDashboard() {
   // --- REAL DATA STATE ---
@@ -175,7 +208,10 @@ export function UserDashboard() {
             <Wallet className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-foreground">${currentBalance.toLocaleString('en-US', { minimumFractionDigits: 2 })}</div>
+            {/* NEW WAY */}
+<div className="text-2xl font-bold text-foreground">
+  $<AnimatedBalance amount={currentBalance} />
+</div>
             <p className="text-xs text-muted-foreground mt-1">Available funds</p>
           </CardContent>
         </Card>
